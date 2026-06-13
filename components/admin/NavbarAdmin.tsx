@@ -1,17 +1,16 @@
 "use client";
 import Link from "next/link";
 import { FaHome } from "react-icons/fa";
-import { ImExit } from "react-icons/im";
 import { IoMenu } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
 const NavbarAdmin: React.FC = () => {
   const [hiddenMenu, sethiddenMenu] = useState(true);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const router = useRouter();
 
   const isAuthenticated = useSelector(

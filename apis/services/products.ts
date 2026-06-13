@@ -1,11 +1,12 @@
 import { urls } from "../urls";
 import axiosInstance from "../client";
+import { IReqGetProduct } from "@/types/products";
+import { IProducts, IProductsResponse, IProductResponse } from "@/types/products";
 
 type GetProductsType = (params: IReqGetProduct) => Promise<IProductsResponse>;
 type AddProductType = (data: FormData) => Promise<{ message: string }>;
 type DeleteProductsType = (id: string) => Promise<void>;
 type EditProductsType = (id: string, data: FormData) => Promise<IProducts>;
-type FetchProductByIdType = (id: string) => Promise<IProducts>;
 
 export const getProducts: GetProductsType = async ({
   page = "1",
@@ -34,13 +35,13 @@ export const AddProducts: AddProductType = async (data) => {
 };
 
 export const DeleteProducts: DeleteProductsType = async (id) => {
-  const response = await axiosInstance.delete(`${urls.products.byId(id)}`);
+  const response = await axiosInstance.delete(`${urls.products.byId(+id)}`);
   return response.data;
 };
 
 export const EditProducts: EditProductsType = async (id, data) => {
   const response = await axiosInstance.patch(
-    `${urls.products.byId(id)}`,
+    `${urls.products.byId(+id)}`,
     data,
     {
       headers: { "Content-Type": "multipart/form-data" },
@@ -49,7 +50,9 @@ export const EditProducts: EditProductsType = async (id, data) => {
   return response.data;
 };
 
+type FetchProductByIdType = (id: string) => Promise<IProductResponse>;
+
 export const fetchProductById: FetchProductByIdType = async (id) => {
-  const response = await axiosInstance.get(`${urls.products.byId(id)}`);
+  const response = await axiosInstance.get(`${urls.products.byId(+id)}`);
   return response.data;
 };

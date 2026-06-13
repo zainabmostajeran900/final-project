@@ -8,6 +8,7 @@ import ToggleCategory from "../components/shop/ToggleCategory";
 import { MdOutlineArrowLeft } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import Image from "next/image";
 import { getCategories } from "@/apis/services/categories";
 import ProductList from "@/components/shop/ProductList";
 
@@ -16,10 +17,9 @@ const Home: React.FC = () => {
     data: categoriesData,
     isLoading: categoriesLoading,
     isError: categoriesError,
-    error: categoriesErrorData,
   } = useQuery({
     queryKey: ["categories"],
-    queryFn: getCategories,
+    queryFn: () => getCategories(),
   });
 
   if (categoriesLoading) {
@@ -53,7 +53,13 @@ const Home: React.FC = () => {
               placeholder="جستجو"
             />
             <div className="absolute inset-y-0 px-3 right-0 text-white flex items-center pointer-events-none">
-              <img src="/input-prefix.svg" alt="Search Icon" />
+              {/* <img src="/input-prefix.svg" alt="Search Icon" /> */}
+                <Image
+                      src={`/input-prefix.svg`}
+                      width={15}
+                      height={15}
+                      alt={`Search Icon`}
+                    />
             </div>
           </div>
         </div>

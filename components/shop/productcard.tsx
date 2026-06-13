@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import {IProducts} from "@/types/products";
 
 export const ProductCard: React.FC<IProducts> = ({
   images,

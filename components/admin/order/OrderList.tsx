@@ -10,6 +10,8 @@ import Image from "next/image";
 import { classNames } from "@/utils/classname";
 import Modal from "@/components/ui/Modal";
 import { DeliverModal } from "@/components/admin/order/DeliverModal";
+import { IOrder,IOrders } from "@/types/orders";
+import { IUser } from "@/types/user";
 
 interface OrderListProps {
   page: number;
@@ -122,15 +124,14 @@ export const OrderList: React.FC<OrderListProps> = ({ page }) => {
     data: ordersData,
     isLoading: ordersLoading,
     isError: ordersError,
-    error: ordersErrorData,
-  } = useQuery<IOrdersResponse, Error>({
+  } = useQuery<IOrders, Error>({
     queryKey: ["get-order", page],
     queryFn: () =>
       getOrders({
         page: String(page),
         limit: String(productsLimit),
       }),
-    keepPreviousData: true,
+    placeholderData: (previousData) => previousData,
   });
 
   const userIds = React.useMemo(() => {
@@ -147,7 +148,7 @@ export const OrderList: React.FC<OrderListProps> = ({ page }) => {
     })),
   });
 
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  // const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [selectedOrder, setSelectedOrder] = React.useState<IOrder | null>(null);
 
   const usersMap: Record<string, IUser> = React.useMemo(() => {

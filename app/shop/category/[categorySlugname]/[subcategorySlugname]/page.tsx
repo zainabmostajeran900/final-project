@@ -8,8 +8,9 @@ import { getAllProducts } from "@/apis/services/products";
 import { ProductCard } from "@/components/shop/productcard";
 import { SidebarCategory } from "@/components/shop/SidebarCategory";
 import { MdOutlineArrowLeft } from "react-icons/md";
+import { IProducts } from "@/types/products";
 
-const SubcategoryPage: React.FC = () => {  
+const SubcategoryPage: React.FC = () => {
   const params = useParams();
   const { subcategorySlugname } = params;
 
@@ -37,7 +38,7 @@ const SubcategoryPage: React.FC = () => {
     error: productsError,
   } = useQuery<any>({
     queryKey: ["products"],
-    queryFn: getAllProducts,
+    queryFn: () => getAllProducts({}),
     enabled: !!subcategoryId,
   });
 
@@ -74,8 +75,8 @@ const SubcategoryPage: React.FC = () => {
   }
 
   const sortedProducts = productsData?.data?.products
-    .filter((product) => product.subcategory == subcategoryId)
-    .sort((a: any, b: any) => {
+    .filter((product: IProducts) => product.subcategory == subcategoryId)
+    .sort((a: IProducts, b: IProducts) => {
       if (sortOrder === "lowToHigh") return a.price - b.price;
       if (sortOrder === "highToLow") return b.price - a.price;
       return 0;
@@ -111,13 +112,13 @@ const SubcategoryPage: React.FC = () => {
           </button>
         </div>
 
-        <div className="block space-y-4 sm:flex  sm:items-start sm:justify-end sm:gap-x-8">
-          <div className="grid sm:grid-cols-[1fr-2fr]  w-full">
+        <div className="block space-y-4 sm:flex sm:items-start sm:justify-end sm:gap-x-8">
+          <div className="grid sm:grid-cols-[1fr-2fr] w-full">
             <SidebarCategory />
           </div>
           <div className="grid sm:col-span-2">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 border py-6 px-4 rounded-md bg-[rgb(188,184,138)]">
-              {sortedProducts.map((product: any) => (
+              {sortedProducts.map((product: IProducts) => (
                 <ProductCard key={product._id} {...product} />
               ))}
             </div>

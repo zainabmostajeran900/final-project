@@ -16,7 +16,6 @@ const CategoryPage: React.FC = () => {
     data: categoryData,
     isLoading,
     isError,
-    error,
   } = useQuery({
     queryKey: ["category", categorySlugname],
     queryFn: () => getCategoryBySlug(String(categorySlugname)),

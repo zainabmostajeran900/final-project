@@ -10,9 +10,10 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { classNames } from "@/utils/classname";
 import Modal from "@/components/ui/Modal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import EditProductForm from "@/components/admin/product/EditProductForm";
 import { useDeleteProduct } from "@/apis/mutation/useDeleteProduct";
+import {  IProducts} from "@/types/products";
 
 const Pagination: React.FC<{
   currentPage: number;
@@ -130,7 +131,6 @@ export const ProductList: React.FC<{ page: number }> = ({ page }) => {
     data: productsData,
     isLoading: productsLoading,
     isError: productsError,
-    error: productsErrorData,
   } = useQuery({
     queryKey: ["get-product", page],
     queryFn: () =>
@@ -154,20 +154,18 @@ export const ProductList: React.FC<{ page: number }> = ({ page }) => {
     data: categoriesData,
     isLoading: categoriesLoading,
     isError: categoriesError,
-    error: categoriesErrorData,
   } = useQuery({
     queryKey: ["categories"],
-    queryFn: getCategories,
+    queryFn: () => getCategories({}),
   });
 
   const {
     data: subCategoriesData,
     isLoading: subCategoriesLoading,
     isError: subCategoriesError,
-    error: subCategoriesErrorData,
   } = useQuery({
     queryKey: ["subcategories"],
-    queryFn: getSubCategories,
+    queryFn: () => getSubCategories({}),
   });
 
   const categoryMap = React.useMemo(() => {
@@ -180,9 +178,9 @@ export const ProductList: React.FC<{ page: number }> = ({ page }) => {
   }, [categoriesData]);
 
   const subCategoryMap = React.useMemo(() => {
-    if (!subCategoriesData?.data?.subcategories) return {};
+    if (!subCategoriesData?.data?.categories) return {};
     const map: Record<string, string> = {};
-    subCategoriesData.data.subcategories.forEach((subcat: any) => {
+    subCategoriesData.data.categories.forEach((subcat: any) => {
       map[subcat._id] = subcat.name;
     });
     return map;

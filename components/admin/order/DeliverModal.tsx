@@ -5,15 +5,16 @@ import { updateOrderDeliveryStatus } from "@/apis/services/orders";
 import { fetchProductById } from "@/apis/services/products";
 import {
   useMutation,
-  useQuery,
   useQueries,
   useQueryClient,
 } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import Modal from "@/components/ui/Modal";
+import { IUser } from "@/types/user";
+import { IOrder } from "@/types/orders";
 
 interface DeliverModalProps {
-  order: IOrders;
+  order: IOrder;
   user: IUser;
   onClose: () => void;
 }
@@ -45,7 +46,7 @@ export const DeliverModal: React.FC<DeliverModalProps> = ({
   const mutation = useMutation({
     mutationFn: () => updateOrderDeliveryStatus(order._id, true),
     onSuccess: () => {
-      queryClient.invalidateQueries(["get-delivered-orders"]);
+      queryClient.invalidateQueries({queryKey:["get-delivered-orders"]});
       toast.success("سفارش با موفقیت تحویل شد");
       onClose();
     },
@@ -163,9 +164,9 @@ export const DeliverModal: React.FC<DeliverModalProps> = ({
             <button
               onClick={handleMarkAsDelivered}
               className="px-4 py-2 rounded-md bg-textColor text-gray-900  hover:bg-white  disabled:opacity-50"
-              disabled={mutation.isLoading}
+              disabled={mutation.isPending }
             >
-              {mutation.isLoading ? "در حال انجام..." : "تحویل شد"}
+              {mutation.isPending  ? "در حال انجام..." : "تحویل شد"}
             </button>
           </div>
         )}

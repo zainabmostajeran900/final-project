@@ -1,0 +1,70 @@
+{
+  "data": {
+    "products": [
+      {
+        "_id": "01",
+        "name": "پیتزا مارگاریتا",
+        "price": 45000,
+        "images": ["margherita.jpg"],
+        "category": "1",
+        "createdAt": "2024-01-01T00:00:00.000Z"
+      },
+      {
+        "_id": "02", 
+        "name": "پیتزا پپرونی",
+        "price": 55000,
+        "images": ["pepperoni.jpg"],
+        "category": "1",
+        "createdAt": "2024-01-02T00:00:00.000Z"
+      },
+      {
+        "_id": "03",
+        "name": "سالاد سزار",
+        "price": 25000,
+        "images": ["caesar.jpg"],
+        "category": "3",
+        "createdAt": "2024-01-03T00:00:00.000Z"
+      },
+      {
+        "_id": "04",
+        "name": "برگر کلاسیک",
+        "price": 35000,
+        "images": ["burger.jpg"],
+        "category": "2",
+        "createdAt": "2024-01-04T00:00:00.000Z"
+      },
+      {
+        "_id": "05",
+        "name": "پیتزا چهار پنیر",
+        "price": 50000,
+        "images": ["four-cheese.jpg"],
+        "category": "1",
+        "createdAt": "2024-01-05T00:00:00.000Z"
+      },
+      {
+        "_id": "06",
+        "name": "پیتزا مخصوص",
+        "price": 60000,
+        "images": ["special.jpg"],
+        "category": "1",
+        "createdAt": "2024-01-06T00:00:00.000Z"
+      },
+      {
+        "_id": "07",
+        "name": "سالاد یونانی",
+        "price": 30000,
+        "images": ["greek-salad.jpg"],
+        "category": "3",
+        "createdAt": "2024-01-07T00:00:00.000Z"
+      },
+      {
+        "_id": "08",
+        "name": "چیزبرگر",
+        "price": 40000,
+        "images": ["cheeseburger.jpg"],
+        "category": "2",
+        "createdAt": "2024-01-08T00:00:00.000Z"
+      }
+    ]
+  }
+}

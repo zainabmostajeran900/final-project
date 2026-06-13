@@ -4,6 +4,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProducts } from "@/apis/services/products";
 import { ProductCard } from "@/components/shop/productcard";
+import {IProducts} from "@/types/products";
 
 interface Category {
   _id: string;
@@ -25,10 +26,9 @@ const ProductList: React.FC<ProductListProps> = ({
     data: productsData,
     isLoading,
     isError,
-    error,
   } = useQuery({
     queryKey: ["products"],
-    queryFn: getAllProducts,
+    queryFn: () => getAllProducts({}),
   });
 
   const sortedProducts = useMemo(() => {

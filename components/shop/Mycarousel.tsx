@@ -11,7 +11,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { dir } from "console";
 
 export function CarouselPlugin() {
   const plugin = React.useRef(

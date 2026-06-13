@@ -4,10 +4,9 @@ interface IChildren {
 interface IReqGetData {
   page?: string;
   limit?: string;
+  deliveryStatus?: boolean;
 }
 
 interface IReqGetById {
   id: string;
 }
-
-

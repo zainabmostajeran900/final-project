@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllSubCategories } from "@/apis/services/subcategories";
 import SubcategoryCard from "@/components/shop/SubcategoryCard";
@@ -14,10 +14,9 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({ category }) => {
     data: subcategoriesData,
     isLoading,
     isError,
-    error,
   } = useQuery({
     queryKey: ["subcategories"],
-    queryFn: getAllSubCategories,
+    queryFn: ()=>getAllSubCategories({}),
   });
 
   if (isLoading) {
@@ -34,7 +33,7 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({ category }) => {
 
   return (
     <div className="grid gap-4 sm:grid sm:grid-cols-2 sm:gap-4">
-      {subcategoriesData?.data?.subcategories
+      {subcategoriesData?.data?.categories
         .filter((sub) => sub.category == category._id)
         .map((subcategory) => (
           <SubcategoryCard

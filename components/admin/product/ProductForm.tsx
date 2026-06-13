@@ -15,6 +15,9 @@ import { useQuery } from "@tanstack/react-query";
 import { errorHandler } from "@/utils/error-handler";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
+import { ISubcategory } from "@/types/subcategory";
+import { ICategory } from "@/types/category";
+
 
 interface ProductFormProps {
   onClose: () => void;
@@ -25,7 +28,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ onClose }) => {
 
   const {
     control,
-    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<ProductSchemaType>({
@@ -49,20 +51,18 @@ const ProductForm: React.FC<ProductFormProps> = ({ onClose }) => {
     data: categoriesData,
     isLoading: categoriesLoading,
     isError: categoriesError,
-    error: categoriesErrorData,
   } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => getCategories(),
+    queryFn: () => getCategories({}),
   });
 
   const {
     data: subCategoriesData,
     isLoading: subCategoriesLoading,
     isError: subCategoriesError,
-    error: subCategoriesErrorData,
   } = useQuery({
     queryKey: ["subcategories"],
-    queryFn: () => getSubCategories(),
+    queryFn:() => getSubCategories({}),
   });
 
   const selectedCategory = useWatch({
@@ -71,9 +71,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ onClose }) => {
   });
 
   const filteredSubCategories = React.useMemo(() => {
-    if (!subCategoriesData?.data?.subcategories || !selectedCategory) return [];
+    if (!subCategoriesData?.data?.categories || !selectedCategory) return [];
 
-    return subCategoriesData.data.subcategories.filter(
+    return subCategoriesData.data.categories.filter(
       (subcat: ISubcategory) => subcat.category === selectedCategory
     );
   }, [subCategoriesData, selectedCategory]);

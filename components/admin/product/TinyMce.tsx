@@ -27,7 +27,6 @@ const TinyEditor: FC<TinyEditorProps> = ({ initialValue, onChange }) => {
           "undo redo | formatselect | bold italic backcolor | \
           alignleft aligncenter alignright alignjustify | \
           bullist numlist outdent indent | removeformat | help",
-        readonly: false,
       }}
       onEditorChange={handleEditorChange}
     />

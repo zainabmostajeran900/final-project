@@ -15,7 +15,6 @@ const GroupPage: React.FC = () => {
     data: groupData,
     isLoading,
     isError,
-    error,
   } = useQuery({
     queryKey: ["category", groupSlugname],
     queryFn: () => getCategoryBySlug(String(groupSlugname)),

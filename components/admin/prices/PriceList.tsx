@@ -127,7 +127,6 @@ export const PriceList: React.FC<{
     data: productsData,
     isLoading: productsLoading,
     isError: productsError,
-    error: productsErrorData,
   } = useQuery({
     queryKey: ["get-product", page],
     queryFn: () =>
@@ -135,7 +134,7 @@ export const PriceList: React.FC<{
         page: String(page),
         limit: String(productsLimit),
       }),
-    keepPreviousData: true,
+  placeholderData: (previousData) => previousData,
   });
 
   const totalPages = React.useMemo(() => {

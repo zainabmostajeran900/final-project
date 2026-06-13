@@ -24,9 +24,9 @@ async function writeCartDb(data: any) {
 
 export async function PATCH(
   request: Request,
-  { params }: { params: Promise<{ productId: string }> },
+  { params }: { params: { productId: string } }
 ) {
-  const { productId } = await params;
+  const { productId } = params;
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userId");
 
@@ -38,7 +38,7 @@ export async function PATCH(
   if (cartQuantity == null) {
     return NextResponse.json(
       { message: "Missing cartQuantity" },
-      { status: 400 },
+      { status: 400 }
     );
   }
 
@@ -50,7 +50,7 @@ export async function PATCH(
   }
 
   const itemIndex = user.cartItems.findIndex(
-    (item: any) => item._id === productId,
+    (item: any) => item._id === productId
   );
   if (itemIndex === -1) {
     return NextResponse.json({ message: "Item not in cart" }, { status: 404 });
@@ -69,9 +69,9 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ productId: string }> },
+  context: { params: { productId: string } }
 ) {
-  const { productId } = await params;
+  const { productId } = context.params;
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userId");
 

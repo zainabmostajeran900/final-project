@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 
 import {
   ShoppingCart,
-  LayoutDashboard,
   ChevronLeft,
   ChartCandlestick,
   ScanBarcode

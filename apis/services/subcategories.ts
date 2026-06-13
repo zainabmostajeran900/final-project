@@ -1,6 +1,7 @@
 //subcategories.ts
 import { urls } from "../urls";
 import axiosInstance from "../client";
+import { ISubCategories } from "@/types/subcategory";
 
 type getSubCategoriesType = (_: IReqGetData) => Promise<ISubCategories>;
 
@@ -16,7 +17,7 @@ export const getAllSubCategories: getSubCategoriesType = async () => {
   return response.data;
 };
 
-type getSubcategoryBySlugType = (slug: string) => Promise<ISubCategory>;
+type getSubcategoryBySlugType = (slug: string) => Promise<ISubCategories>;
 
 export const getSubCategoryBySlug: getSubcategoryBySlugType = async (slug) => {
   const response = await axiosInstance.get(

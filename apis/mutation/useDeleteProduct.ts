@@ -9,7 +9,7 @@ export const useDeleteProduct = () => {
     mutationFn: DeleteProducts,
     onSuccess: () => {
       toast.success("حذف موفقیت‌آمیز بود");
-      queryClient.invalidateQueries(["get-product"]);
+      queryClient.invalidateQueries({queryKey:["get-product"]});
     },
     onError: (error: any) => {
       const errorMessage = error.response?.data?.message || "خطا در حذف کالا";

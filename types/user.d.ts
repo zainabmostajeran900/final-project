@@ -1,4 +1,4 @@
-interface IUser {
+export interface IUser {
   _id: string;
   firstname: string;
   lastname: string;
@@ -8,4 +8,11 @@ interface IUser {
   role: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface IUserResponse {
+  status: string;
+  data: {
+    user: IUser;
+  };
 }

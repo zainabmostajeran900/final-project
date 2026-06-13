@@ -13,7 +13,6 @@ interface SubcategoryCardProps {
 }
 
 const SubcategoryCard: React.FC<SubcategoryCardProps> = ({
-  subcategoryId,
   subcategoryName,
   subcategorySlugname,
   categorySlugname,

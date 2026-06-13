@@ -5,7 +5,6 @@ import { useForm, Controller } from "react-hook-form";
 import { OrderDataSchema, OrderDataSchemaType } from "@/validation/Order";
 import { Input } from "@/components/admin/Input";
 import { toast } from "react-toastify";
-import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";

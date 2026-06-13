@@ -1,24 +1,64 @@
+
+interface CartItem {
+  _id: string;
+  name: string;
+  price: number;
+  quantity: number; // این پارامتر در POST استفاده شده ولی مقداردهی نشده، احتمالا باید quantity اصلی محصول باشد
+  images: string[]; // فرض بر این است که images آرایه ای از string ها است
+  description?: string; // آپشنال
+  brand?: string;     // آپشنال
+  cartQuantity: number; // تعداد در سبد خرید
+}
+
+// تعریف تایپ برای یک کاربر در دیتابیس
+interface UserCartData {
+  userId: string;
+  cartItems: CartItem[];
+}
+
+// تعریف تایپ برای کل دیتابیس
+interface CartDatabase {
+  users: UserCartData[];
+}
+
+//-----------------------------------------------------------------------------
+// فایل route.ts با تایپ‌های اصلاح شده
+//-----------------------------------------------------------------------------
 import { NextResponse } from "next/server";
 import fsPromises from "fs/promises";
 import path from "path";
 
 const cartDbPath = path.join(process.cwd(), "data", "cartDb.json");
 
-async function readCartDb() {
+// تابع readCartDb با تایپ بازگشتی مشخص
+async function readCartDb(): Promise<CartDatabase> {
   try {
     const data = await fsPromises.readFile(cartDbPath, "utf-8");
-    return JSON.parse(data);
+    // اگر فایل خالی بود یا JSON نامعتبر داشت، به صورت ایمن parse کنید
+    if (!data.trim()) {
+      return { users: [] };
+    }
+    const parsedData: CartDatabase = JSON.parse(data);
+    // اطمینان از اینکه ساختار کلی درست است
+    if (!parsedData.users) {
+      return { users: [] };
+    }
+    return parsedData;
   } catch (error) {
     console.error("Error reading cartDb.json:", error);
+    // در صورت بروز خطا، یک دیتابیس خالی برگردانید
     return { users: [] };
   }
 }
 
-async function writeCartDb(data: any) {
+// تابع writeCartDb با تایپ پارامتر مشخص
+async function writeCartDb(data: CartDatabase): Promise<void> {
   try {
     await fsPromises.writeFile(cartDbPath, JSON.stringify(data, null, 2));
   } catch (error) {
     console.error("Error writing cartDb.json:", error);
+    // می توانید خطا را throw کنید تا اپلیکیشن از آن مطلع شود
+    // throw error;
   }
 }
 
@@ -31,9 +71,11 @@ export async function GET(request: Request) {
   }
 
   const dbData = await readCartDb();
-  const user = dbData.users.find((u: any) => u.userId === userId);
+  // حالا dbData.users تایپ CartDatabase را دارد و المنت‌های آن UserCartData هستند
+  const user = dbData.users.find((u) => u.userId === userId);
 
   if (!user) {
+    // اگر کاربر پیدا نشد، سبد خرید خالی را برگردانید
     return NextResponse.json([], { status: 200 });
   }
 
@@ -48,11 +90,29 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Missing userId" }, { status: 400 });
   }
 
-  const { _id, name, price, quantity, images, description, brand } =
-    await request.json();
+  // نوع‌دهی به داده‌های ورودی از request.json
+  const newItemData = await request.json();
+  // می توانید یک Interface جداگانه برای newItemData تعریف کنید اگر همیشه فرمت مشخصی دارد
+  const { _id, name, price, quantity, images, description, brand } = newItemData;
+
+  // بررسی اینکه آیا فیلدهای مورد نیاز وجود دارند
+  if (!_id || !name || typeof price !== 'number' || typeof quantity !== 'number' || !images) {
+      return NextResponse.json({ message: "Invalid item data provided" }, { status: 400 });
+  }
+
+  const itemToAdd: Omit<CartItem, 'cartQuantity'> = { // quantity اصلی محصول را نگه میداریم
+    _id,
+    name,
+    price,
+    quantity, // تعداد اصلی محصول
+    images,
+    description,
+    brand,
+  };
+
 
   const dbData = await readCartDb();
-  let user = dbData.users.find((u: any) => u.userId === userId);
+  let user = dbData.users.find((u) => u.userId === userId); // تایپ user اکنون UserCartData است
 
   if (!user) {
     user = {
@@ -62,19 +122,14 @@ export async function POST(request: Request) {
     dbData.users.push(user);
   }
 
-  const existingItem = user.cartItems.find((item: any) => item._id === _id);
+  const existingItem = user.cartItems.find((item) => item._id === _id);
 
   if (existingItem) {
-    existingItem.cartQuantity += 1;
+    existingItem.cartQuantity += 1; // فقط تعداد در سبد خرید را افزایش میدهیم
   } else {
+    // هنگام اضافه کردن به سبد خرید، cartQuantity را 1 قرار میدهیم
     user.cartItems.push({
-      _id,
-      name,
-      price,
-      quantity,
-      images,
-      description,
-      brand,
+      ...itemToAdd,
       cartQuantity: 1,
     });
   }
@@ -96,15 +151,17 @@ export async function DELETE(request: Request) {
   }
 
   const dbData = await readCartDb();
-  const userIndex = dbData.users.findIndex((u: any) => u.userId === userId);
+  const userIndex = dbData.users.findIndex((u) => u.userId === userId); // تایپ userIndex number است
 
   if (userIndex === -1) {
+    // اگر کاربر اصلا در دیتابیس نباشد، سبد خرید از قبل خالی است
     return NextResponse.json(
-      { message: "Cart already empty" },
+      { message: "User not found or cart already empty" },
       { status: 200 }
     );
   }
 
+  // خالی کردن سبد خرید کاربر
   dbData.users[userIndex].cartItems = [];
   await writeCartDb(dbData);
 

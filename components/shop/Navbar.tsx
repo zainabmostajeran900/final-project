@@ -93,7 +93,7 @@ const Navbar: React.FC = () => {
 
               {/* Dropdown */}
               {cartDropdown && (
-                <div className="absolute top-10 left-0 bg-white shadow-lg rounded-md z-50 w-80 max-h-96 overflow-y-auto">
+                <div className="absolute top-10 left-0 bg-white shadow-lg rounded-md z-50 w-80  max-h-96 overflow-y-auto">
                   <ul className="px-4 py-4 space-y-4 w-full">
                     {cart.length > 0 ? (
                       <>
@@ -111,7 +111,7 @@ const Navbar: React.FC = () => {
                                 alt={item.name}
                               />
                             </div>
-                            <div className="flex flex-col gap-y-1 text-sm flex-grow">
+                            <div className="flex flex-col gap-y-1 items-center justify-center text-sm flex-grow">
                               <p className="text-gray-800 truncate">
                                 {item.name}
                               </p>
@@ -119,7 +119,7 @@ const Navbar: React.FC = () => {
                                 {item.price.toLocaleString("ar-EG")} تومان
                               </p>
                             </div>
-                            <div className="flex flex-col items-center justify-center text-sm text-red-600 w-12">
+                            <div className="flex gap-x-1 items-center justify-center text-sm text-red-600 w-12">
                               <p>{item.cartQuantity.toLocaleString("ar-EG")}</p>
                               <p>عدد</p>
                             </div>

@@ -1,8 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { setTokens, removeTokens } from "@/libs/session-manager";
+import { IUser } from "@/types/user";
+
+interface Token {
+  accessToken: string;
+  refreshToken: string;
+}
 
 interface AuthState {
-  user: User | null;
+  user: IUser | null;
   tokens: Token | null;
   isAuthenticated: boolean;
   loading: boolean;
@@ -27,7 +33,7 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    loginSuccess(state, action: PayloadAction<{ tokens: Token; user: User }>) {
+    loginSuccess(state, action: PayloadAction<{ tokens: Token; user: IUser }>) {
       state.tokens = action.payload.tokens;
       state.user = action.payload.user;
       state.isAuthenticated = true;
@@ -54,7 +60,6 @@ const authSlice = createSlice({
       state.tokens = action.payload;
       setTokens(action.payload.accessToken, action.payload.refreshToken);
     },
-
     setAuthInitialized(state) {
       state.initialized = true;
     },

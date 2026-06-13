@@ -1,20 +1,17 @@
-interface ICategories {
-    status: string;
-    page: number;
-    per_page: number;
-    total: number;
-    total_pages: number;
-    data: {
-      categories: [
-        {
-          _id: string;
-          name: string;
-          icon: string;
-          createdAt: string;
-          updatedAt: string;
-          slugname: string;
-        }
-      ];
-    };
-  }
-  
+export interface ICategory {
+  _id: string;
+  name: string;
+  slugname: string;
+  description?: string;
+}
+
+export interface ICategories {
+  status: number;
+  page: number;
+  per_page: number;
+  total: number;
+  total_pages: number;
+  data: {
+    categories: ICategory[];
+  };
+}

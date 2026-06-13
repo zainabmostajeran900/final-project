@@ -5,10 +5,10 @@ import PageTitle from "@/components/admin/PageTitle";
 import { OrderList } from "@/components/admin/order/OrderList";
 import { useSearchParams } from "next/navigation";
 import ToggleGroup from "@/components/admin/order/ToggleGroup";
-import {useAdminGuard} from "@/hooks/useAdminGuard";
+import { useAdminGuard } from "@/hooks/useAdminGuard";
 
-const OrdersPage: React.FC = () => {
-  useAdminGuard()
+const OrdersContent: React.FC = () => {
+  useAdminGuard();
   const searchParams = useSearchParams();
   const pageParam = searchParams.get("page");
 
@@ -21,13 +21,19 @@ const OrdersPage: React.FC = () => {
     <section className="mx-auto">
       <div className="sm:flex sm:items-center sm:justify-between sm:px-16">
         <PageTitle className="px-2" title="سفارش ها" />
-        <ToggleGroup/>
+        <ToggleGroup />
       </div>
-      <Suspense fallback={<div>در حال بارگذاری...</div>}>
-        <OrderList page={currentPage} />
-      </Suspense>
+      <OrderList page={currentPage} />
     </section>
   );
 };
 
-export default OrdersPage
+const OrdersPage: React.FC = () => {
+  return (
+    <Suspense fallback={<div>در حال بارگذاری...</div>}>
+      <OrdersContent />
+    </Suspense>
+  );
+};
+
+export default OrdersPage;

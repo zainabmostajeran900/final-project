@@ -1,5 +1,6 @@
 import { urls } from "../urls";
 import axiosInstance from "../client";
+import { IOrders } from "@/types/orders";
 
 type getOrdersType = (_: IReqGetData) => Promise<IOrders>;
 

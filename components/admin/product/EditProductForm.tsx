@@ -15,6 +15,10 @@ import { useQuery } from "@tanstack/react-query";
 import { errorHandler } from "@/utils/error-handler";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
+import { IProducts } from "@/types/products";
+import { ISubcategory } from "@/types/subcategory";
+import { ICategory } from "@/types/category";
+
 
 interface EditProductFormProps {
   onClose: () => void;
@@ -54,7 +58,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
     isError: categoriesError,
   } = useQuery({
     queryKey: ["categories"],
-    queryFn: getCategories,
+    queryFn: () => getCategories({}),
   });
 
   const {
@@ -63,7 +67,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
     isError: subCategoriesError,
   } = useQuery({
     queryKey: ["subcategories"],
-    queryFn: getSubCategories,
+    queryFn: () => getSubCategories({}),
   });
 
   const selectedCategory = useWatch({
@@ -71,12 +75,12 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
     name: "category",
   });
 
-  const filteredSubCategories = useMemo(() => {
-    if (!subCategoriesData?.data?.subcategories || !selectedCategory) return [];
-    return subCategoriesData.data.subcategories.filter(
-      (subcat: ISubcategory) => subcat.category === selectedCategory
-    );
-  }, [subCategoriesData, selectedCategory]);
+const filteredSubCategories = useMemo(() => {
+  if (!subCategoriesData?.data?.categories || !selectedCategory) return [];
+  return subCategoriesData.data.categories.filter(
+    (subcat: ISubcategory) => subcat.category === selectedCategory
+  );
+}, [subCategoriesData, selectedCategory]);
 
   useEffect(() => {
     if (product) {
@@ -320,7 +324,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
                 product.images?.length
                   ? product.images.map(
                       (img) =>
-                        `http://localhost:8000/images/products/images/${img}`
+                        `http://localhost:8000/images/products/images/${img}`,
                     )
                   : []
               }

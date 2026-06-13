@@ -2,9 +2,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/admin/Input";
 import { useForm, Controller } from "react-hook-form";
-import { useAppSelector } from "@/redux/Hook";
+import { useAppSelector, useAppDispatch } from "@/redux/Hook";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
 import { clearCart } from "@/redux/slices/cartSlice";
 import { toast } from "react-toastify";
 import { PaymentSchema, PaymentSchemaType } from "@/validation/payment";
@@ -30,7 +29,7 @@ export const PaymentForm: React.FC = () => {
     },
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { push } = useRouter();
 
   const cancelPayment = () => {
@@ -50,6 +49,7 @@ export const PaymentForm: React.FC = () => {
     }
     console.log("Form Data:", data);
   };
+
   return (
     <div className="block space-y-5 sm:flex sm:gap-x-6 sm:space-y-0">
       <form
@@ -138,7 +138,7 @@ export const PaymentForm: React.FC = () => {
           <button
             type="button"
             onClick={cancelPayment}
-            className="py-2 px-4 w-full bg-slate-300  text-sm rounded-md font-semibold hover:bg-slate-400 sm:text-gray-800"
+            className="py-2 px-4 w-full bg-slate-300 text-sm rounded-md font-semibold hover:bg-slate-400 sm:text-gray-800"
           >
             انصراف
           </button>
@@ -149,7 +149,7 @@ export const PaymentForm: React.FC = () => {
           <p className="text-sm sm:text-textColor">
             مبلغ قابل پرداخت:{" "}
             <span className="font-bold">
-            {total.toLocaleString("ar-EG")} تومان
+              {total.toLocaleString("ar-EG")} تومان
             </span>
           </p>
           <p className="text-sm sm:text-textColor">

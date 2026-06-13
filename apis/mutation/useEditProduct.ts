@@ -14,7 +14,7 @@ export const useEditProduct = () => {
     mutationFn: ({ id, data }: EditProductPayload) => EditProducts(id, data),
     onSuccess: () => {
       toast.success("Products updated successfully!");
-      queryClient.invalidateQueries(["get-product"]);
+      queryClient.invalidateQueries({ queryKey:["get-product"]});
     },
     
     onError: (error: any) => {

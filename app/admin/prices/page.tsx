@@ -5,10 +5,9 @@ import PageTitle from "@/components/admin/PageTitle";
 import { PriceList } from "@/components/admin/prices/PriceList";
 import { useSearchParams } from "next/navigation";
 import { useEditProduct } from "@/apis/mutation/useEditProduct";
-import {useAdminGuard} from "@/hooks/useAdminGuard"
+import { useAdminGuard } from "@/hooks/useAdminGuard";
 
-
-const PricesPage: React.FC = () => {
+const PricesContent: React.FC = () => {
   useAdminGuard();
   const searchParams = useSearchParams();
   const pageParam = searchParams.get("page");
@@ -46,10 +45,6 @@ const PricesPage: React.FC = () => {
           formData.append("price", String(changes.price));
         if (changes.quantity !== undefined)
           formData.append("quantity", String(changes.quantity));
-        console.log("Updating Product ID:", id);
-        formData.forEach((value, key) => {
-          console.log(`${key}: ${value}`);
-        });
         return editProductMutation.mutateAsync({ id, data: formData });
       }
     );
@@ -66,26 +61,31 @@ const PricesPage: React.FC = () => {
     <section className="px-6">
       <div className="flex justify-between items-center px-4">
         <PageTitle title="موجودی وقیمت ها" />
-
         <button
           className="bg-slate-200 px-3 py-1 sm:px-8 sm:py-2 rounded-md font-bold hover:bg-slate-300"
           onClick={handleBulkUpdate}
           disabled={
             Object.keys(editedProducts).length === 0 ||
-            editProductMutation.isLoading
+            editProductMutation.isPending
           }
         >
-          {editProductMutation.isLoading ? "در حال بروزرسانی..." : "ذخیره"}
+          {editProductMutation.isPending ? "در حال بروزرسانی..." : "ذخیره"}
         </button>
       </div>
-      <Suspense fallback={<div>در حال بارگذاری...</div>}>
-        <PriceList
-          page={currentPage}
-          editedProducts={editedProducts}
-          onInputChange={handleInputChange}
-        />
-      </Suspense>
+      <PriceList
+        page={currentPage}
+        editedProducts={editedProducts}
+        onInputChange={handleInputChange}
+      />
     </section>
+  );
+};
+
+const PricesPage: React.FC = () => {
+  return (
+    <Suspense fallback={<div>در حال بارگذاری...</div>}>
+      <PricesContent />
+    </Suspense>
   );
 };
 

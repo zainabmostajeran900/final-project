@@ -1,6 +1,5 @@
 // GroupLayout.tsx
 import React from "react";
-import { SidebarCategory } from "@/components/shop/SidebarCategory";
 
 interface IChildren {
   children: React.ReactNode;

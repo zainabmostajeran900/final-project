@@ -60,7 +60,7 @@ const AuthInitializer: React.FC = () => {
           const response = await axiosInstance.get(`/users/${decoded.id}`);
           const user = response.data.data.user;
           dispatch(
-            loginSuccess({ tokens: { accessToken, refreshToken }, user })
+            loginSuccess({ tokens: { accessToken, refreshToken: refreshToken ?? "" }, user })
           );
         } catch (error) {
           console.error("Failed to fetch user data:", error);
