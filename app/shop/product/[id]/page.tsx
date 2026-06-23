@@ -171,7 +171,7 @@ export default function SingleProductPage({
       {product ? (
            <div className="block  space-y-3 sm:flex justify-start items-start gap-x-10 py-24 px-4 shadow-lg">
            <div>           <Image
-              src={`http://localhost:8000/images/products/images/${product.images[0]}`}
+              src={`https://final-backend-kohl.vercel.app//images/products/images/${product.images[0]}`}
               width={500}
               height={20}
               alt={product.name}

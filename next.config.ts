@@ -6,14 +6,14 @@ const nextConfig: NextConfig = {
     remotePatterns:[
       {
         protocol:'http',
-        hostname:'localhost',
-        port:'8000',
+        hostname:'final-backend-kohl.vercel.app/',
+        // port:'8000',
         pathname:'/images/products/images/**',
       },
       {
         protocol:'http',
-        hostname:'localhost',
-        port:'8000',
+        hostname:'final-backend-kohl.vercel.app/',
+        // port:'8000',
         pathname:'/images/products/thumbnails/**',
       },
       {
