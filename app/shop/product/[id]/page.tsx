@@ -104,9 +104,10 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState, use } from "react"; // 1. use را اینجا اضافه کنید
 import SingleProductClient from "./SingleProductClient";
+import { env } from "process";
 
 const fetchProduct = async (id:    string) => {
-  const res = await fetch(`/api/products/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${id}`, {
     cache: "no-store",
   });
   if (!res.ok) {

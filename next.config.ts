@@ -5,14 +5,14 @@ const nextConfig: NextConfig = {
   images:{
     remotePatterns:[
       {
-        protocol:'http',
-        hostname:'final-backend-kohl.vercel.app/',
+        protocol:'https',
+        hostname:'backend-final-rho.vercel.app',
         // port:'8000',
         pathname:'/images/products/images/**',
       },
       {
-        protocol:'http',
-        hostname:'final-backend-kohl.vercel.app/',
+        protocol:'https',
+        hostname:'backend-final-rho.vercel.app',
         // port:'8000',
         pathname:'/images/products/thumbnails/**',
       },

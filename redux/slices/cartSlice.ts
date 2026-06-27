@@ -49,7 +49,7 @@ export const fetchCart = createAsyncThunk<
     return localCart;
   }
 
-  const response = await fetch(`/api/cart?userId=${userId}`, { method: "GET" });
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cart?userId=${userId}`, { method: "GET" });
   if (!response.ok) {
     throw new Error("Failed to fetch cart");
   }
@@ -78,7 +78,7 @@ export const addProductToCart = createAsyncThunk<
     return product;
   }
 
-  const response = await fetch(`/api/cart?userId=${userId}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cart?userId=${userId}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(product),
@@ -114,7 +114,7 @@ export const updateItemQuantity = createAsyncThunk<
       return { productId, newQuantity };
     }
 
-    const response = await fetch(`/api/cart/${productId}?userId=${userId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cart/${productId}?userId=${userId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ cartQuantity: newQuantity }),
@@ -145,7 +145,7 @@ export const removeItemFromCart = createAsyncThunk<
       return productId;
     }
 
-    const response = await fetch(`/api/cart/${productId}?userId=${userId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cart/${productId}?userId=${userId}`, {
       method: "DELETE",
     });
 
@@ -168,7 +168,7 @@ export const clearCart = createAsyncThunk<boolean, void, { state: RootState }>(
       return true;
     }
 
-    const response = await fetch(`/api/cart?userId=${userId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cart?userId=${userId}`, {
       method: "DELETE",
     });
     if (!response.ok) {
