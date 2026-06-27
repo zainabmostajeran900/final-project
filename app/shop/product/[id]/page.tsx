@@ -106,7 +106,7 @@ import { useEffect, useState, use } from "react"; // 1. use را اینجا اض
 import SingleProductClient from "./SingleProductClient";
 
 const fetchProduct = async (id:    string) => {
-  const res = await fetch(`http://localhost:8000/api/products/${id}`, {
+  const res = await fetch(`/api/products/${id}`, {
     cache: "no-store",
   });
   if (!res.ok) {
