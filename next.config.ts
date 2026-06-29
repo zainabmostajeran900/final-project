@@ -7,14 +7,6 @@ const nextConfig: NextConfig = {
       {
         protocol:'https',
         hostname:'backend-final-rho.vercel.app',
-        // port:'8000',
-        pathname:'/images/products/images/**',
-      },
-      {
-        protocol:'https',
-        hostname:'backend-final-rho.vercel.app',
-        // port:'8000',
-        pathname:'/images/products/thumbnails/**',
       },
       {
         protocol: "http",
