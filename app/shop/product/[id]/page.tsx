@@ -15,7 +15,7 @@
 //   return data;
 // };
 
-// // Skeleton 
+// // Skeleton
 // export const SingleProductSkeleton: React.FC = () => {
 //   return (
 //     <div className=" pt-[80px] block space-y-3 sm:flex justify-start items-start gap-x-10 py-10 px-4 shadow-lg animate-pulse">
@@ -52,13 +52,13 @@
 //         notFound();
 //       }
 //       setProduct(productRes.data.product);
-//       setLoading(false); 
+//       setLoading(false);
 //     };
 //     fetchData();
 //   }, [params.id]);
 
 //   if (loading) {
-//     return <SingleProductSkeleton />; 
+//     return <SingleProductSkeleton />;
 //   }
 
 //   return (
@@ -106,10 +106,13 @@ import { useEffect, useState, use } from "react"; // 1. use را اینجا اض
 import SingleProductClient from "./SingleProductClient";
 import { env } from "process";
 
-const fetchProduct = async (id:    string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${id}`, {
-    cache: "no-store",
-  });
+const fetchProduct = async (id: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/products/${id}`,
+    {
+      cache: "no-store",
+    },
+  );
   if (!res.ok) {
     return null;
   }
@@ -117,8 +120,8 @@ const fetchProduct = async (id:    string) => {
   return data;
 };
 
-// Skeleton 
- const SingleProductSkeleton: React.FC = () => {
+// Skeleton
+const SingleProductSkeleton: React.FC = () => {
   return (
     <div className=" pt-[80px] block space-y-3 sm:flex justify-start items-start gap-x-10 py-10 px-4 shadow-lg animate-pulse">
       <div className="bg-gray-300 rounded-md w-[500px] h-[300px] mt-3" />
@@ -145,34 +148,36 @@ export default function SingleProductPage({
   params: Promise<{ id: string }>; // 2. params را به عنوان Promise تعریف کنید
 }) {
   // 3. در اینجا params را unwrap می‌کنیم
-  const { id } = use(params); 
-  
+  const { id } = use(params);
+
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       // 4. حالا از id که از use گرفتید استفاده کنید
-      const productRes = await fetchProduct(id); 
+      const productRes = await fetchProduct(id);
       if (!productRes) {
         notFound();
       }
       setProduct(productRes.data.product);
-      setLoading(false); 
+      setLoading(false);
     };
     fetchData();
   }, [id]); // 5. در وابستگی‌های useEffect هم از id استفاده کنید
 
   if (loading) {
-    return <SingleProductSkeleton />; 
+    return <SingleProductSkeleton />;
   }
 
   return (
     <div>
       {product ? (
-           <div className="block  space-y-3 sm:flex justify-start items-start gap-x-10 py-24 px-4 shadow-lg">
-           <div>           <Image
-              src={`https://final-backend-kohl.vercel.app//images/products/images/${product.images[0]}`}
+        <div className="block  space-y-3 sm:flex justify-start items-start gap-x-10 py-24 px-4 shadow-lg">
+          <div>
+            {" "}
+            <Image
+              src={`https://final-backend-kohl.vercel.app/images/products/images/${product.images[0]}`}
               width={500}
               height={20}
               alt={product.name}
