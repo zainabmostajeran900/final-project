@@ -26,7 +26,7 @@ const SubcategoryCard: React.FC<SubcategoryCardProps> = ({
       <div className=" border flex flex-col items-center gap-y-2">
         <Image
           className="object-cover"
-          src={`http://localhost:8000/images/categories/icons/${categoryIcon}`}
+          src={`https://backend-final-rho.vercel.app/images/categories/icons/${categoryIcon}`}
           width={200}
           height={200}
           alt="Picture of the author"

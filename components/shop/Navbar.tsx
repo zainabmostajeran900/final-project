@@ -105,7 +105,7 @@ const Navbar: React.FC = () => {
                             <div className="w-16 h-16 flex-shrink-0">
                               <Image
                                 className="p-2 object-cover rounded"
-                                src={`http://localhost:8000/images/products/images/${item.images[0]}`}
+                                src={`https://backend-final-rho.vercel.app/images/products/images/${item.images[0]}`}
                                 width={60}
                                 height={60}
                                 alt={item.name}

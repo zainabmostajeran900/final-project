@@ -13,7 +13,7 @@ export const ProductCard: React.FC<IProducts> = ({
       <div className="flex w-full p-2 gap-x-7 sm:gap-x-2 items-center justify-between text-textColor shadow-lg hover:text-gray-800 rounded-lg bg-base hover:bg-white hover:shadow-sm hover:shadow-slate-400 hover:border-slate-700  h-48">
         <Image
           className="grid grid-cols-4 items-center justify-center rounded-lg  sm:object-cover object-contain"
-          src={`http://localhost:8000/images/products/images/${images[0]}`}
+          src={`https://backend-final-rho.vercel.app/images/products/images/${images[0]}`}
           width={130}
           height={130}
           alt="Picture of the author"

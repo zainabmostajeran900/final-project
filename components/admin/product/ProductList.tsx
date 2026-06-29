@@ -238,7 +238,7 @@ export const ProductList: React.FC<{ page: number }> = ({ page }) => {
                   <div className="relative w-20 h-20 aspect-square">
                     <Image
                       className="rounded-full"
-                      src={`http://localhost:8000/images/products/images/${item.images[0]}`}
+                      src={`https://backend-final-rho.vercel.app/images/products/images/${item.images[0]}`}
                       alt={item.name}
                       fill
                       sizes="80px"

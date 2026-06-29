@@ -177,7 +177,7 @@ export default function SingleProductPage({
           <div>
             {" "}
             <Image
-              src={`https://final-backend-kohl.vercel.app/images/products/images/${product.images[0]}`}
+              src={`https://backend-final-rho.vercel.app/images/products/images/${product.images[0]}`}
               width={500}
               height={20}
               alt={product.name}
@@ -193,7 +193,7 @@ export default function SingleProductPage({
             <SingleProductClient product={product} />
             <div className="flex">
               <Image
-                src={`http://localhost:8000/images/products/images/${product.images[0]}`}
+                src={`https://backend-final-rho.vercel.app/images/products/images/${product.images[0]}`}
                 width={200}
                 height={20}
                 alt={product.name}

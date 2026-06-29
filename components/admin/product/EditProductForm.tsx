@@ -305,7 +305,7 @@ const filteredSubCategories = useMemo(() => {
               error={fieldState.error}
               existingUrl={
                 product.thumbnail
-                  ? `http://localhost:8000/images/products/thumbnails/${product.thumbnail}`
+                  ? `https://backend-final-rho.vercel.app/images/products/thumbnails/${product.thumbnail}`
                   : null
               }
             />
@@ -324,7 +324,7 @@ const filteredSubCategories = useMemo(() => {
                 product.images?.length
                   ? product.images.map(
                       (img) =>
-                        `http://localhost:8000/images/products/images/${img}`,
+                        `https://backend-final-rho.vercel.app/images/products/images/${img}`,
                     )
                   : []
               }

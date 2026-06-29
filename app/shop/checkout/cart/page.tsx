@@ -54,7 +54,7 @@ const ShoppingCart: React.FC = () => {
                 >
                   <Image
                     className="p-2 object-cover  md:w-[150px] h-[150px] rounded-lg"
-                    src={`http://localhost:8000/images/products/images/${item.images[0]}`}
+                    src={`https://backend-final-rho.vercel.app/images/products/images/${item.images[0]}`}
                     width={200}
                     height={300}
                     alt={item.name}
