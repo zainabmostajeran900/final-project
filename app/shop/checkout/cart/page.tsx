@@ -48,7 +48,7 @@ const ShoppingCart: React.FC = () => {
               </p>
             ) : (
               cart.map((item) => {
-                console.log("image name:", item.images[0]);
+console.log('item:', item)
                 return (
                   <div
                     key={item._id}
