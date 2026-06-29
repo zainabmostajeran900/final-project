@@ -86,7 +86,7 @@ export async function DELETE(
     return NextResponse.json({ message: "User not found" }, { status: 404 });
   }
 
-  user.cartItems = user.cartItems.filter((item: any) => item._id !== productId);
+  user.cartItems = (user.cartItems??[]).filter((item: any) => item._id !== productId);
   await writeCartDb(dbData);
 
   return NextResponse.json({ message: "Item removed" }, { status: 200 });

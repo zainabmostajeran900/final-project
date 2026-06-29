@@ -77,7 +77,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
 
 const filteredSubCategories = useMemo(() => {
   if (!subCategoriesData?.data?.categories || !selectedCategory) return [];
-  return subCategoriesData.data.categories.filter(
+  return (subCategoriesData.data.categories??[]).filter(
     (subcat: ISubcategory) => subcat.category === selectedCategory
   );
 }, [subCategoriesData, selectedCategory]);

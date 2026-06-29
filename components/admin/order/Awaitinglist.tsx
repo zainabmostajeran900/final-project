@@ -159,7 +159,7 @@ export const AwaitingList: React.FC<OrderListProps> = ({ page }) => {
     return map;
   }, [usersQueries, userIds]);
 
-  const filter = ordersData?.data?.orders.filter(
+  const filter = (ordersData?.data?.orders??[]).filter(
     (order: IOrder) => !order.deliveryStatus
   )?? [];
 
@@ -218,7 +218,7 @@ export const AwaitingList: React.FC<OrderListProps> = ({ page }) => {
             </tr>
           </thead>
           <tbody className="text-center bg-base text-gray-900 font-semibold">
-            {ordersData?.data?.orders
+            {(ordersData?.data?.orders??[])
               .filter((order: IOrder) => !order.deliveryStatus)
               .map((order: IOrder) => (
                 <tr

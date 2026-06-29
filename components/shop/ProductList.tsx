@@ -34,7 +34,7 @@ const ProductList: React.FC<ProductListProps> = ({
   const sortedProducts = useMemo(() => {
     if (!productsData?.data.products) return [];
 
-    const filtered = productsData.data.products.filter(
+    const filtered = (productsData.data.products??[]).filter(
       (product: IProducts) => product.category === category._id
     );
 

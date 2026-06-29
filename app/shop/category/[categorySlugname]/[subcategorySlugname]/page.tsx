@@ -74,7 +74,7 @@ const SubcategoryPage: React.FC = () => {
     );
   }
 
-  const sortedProducts = productsData?.data?.products
+  const sortedProducts = (productsData?.data?.products??[])
     .filter((product: IProducts) => product.subcategory == subcategoryId)
     .sort((a: IProducts, b: IProducts) => {
       if (sortOrder === "lowToHigh") return a.price - b.price;
